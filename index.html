@@ -6,10 +6,9 @@
   
   <!-- Primary Meta Tags -->
   <!-- TODO: Replace with your paper title and author names -->
-  <meta name="title" content="PAPER_TITLE - AUTHOR_NAMES">
+  <meta name="title" content="Lineage Aware Gaussian Pruning for Building Isolation - Linghe Zhang">
   <!-- TODO: Write a compelling 150-160 character description of your research -->
-  <meta name="description" content="BRIEF_DESCRIPTION_OF_YOUR_RESEARCH_CONTRIBUTION_AND_FINDINGS">
-  <!-- TODO: Add 5-10 relevant keywords for your research area -->
+  <meta name="description" content="A lineage-aware Gaussian pruning method that isolates buildings from Gaussian splatting reconstructions using hierarchical confidence propagation.">  <!-- TODO: Add 5-10 relevant keywords for your research area -->
   <meta name="keywords" content="KEYWORD1, KEYWORD2, KEYWORD3, machine learning, computer vision, AI">
   <!-- TODO: List all authors -->
   <meta name="author" content="FIRST_AUTHOR_NAME, SECOND_AUTHOR_NAME">
@@ -241,25 +240,23 @@
         <div class="columns is-centered">
           <div class="column has-text-centered">
             <!-- TODO: Replace with your paper title -->
-            <h1 class="title is-1 publication-title">Academic Project Page</h1>
+            <h1 class="title is-1 publication-title">Lineage Aware Gaussian Pruning for Building Isolation</h1>
             <div class="is-size-5 publication-authors">
               <!-- TODO: Replace with your paper authors and their personal links -->
               <span class="author-block">
-                <a href="FIRST AUTHOR PERSONAL LINK" target="_blank">First Author</a><sup>*</sup>,</span>
+                <a href="FIRST AUTHOR PERSONAL LINK" target="_blank">Linghe Zhang</a><sup>*</sup>,</span>
                 <span class="author-block">
-                  <a href="SECOND AUTHOR PERSONAL LINK" target="_blank">Second Author</a><sup>*</sup>,</span>
+                  <a href="SECOND AUTHOR PERSONAL LINK" target="_blank">Chavi/Gender</a><sup>*</sup>,</span>
                   <span class="author-block">
-                    <a href="THIRD AUTHOR PERSONAL LINK" target="_blank">Third Author</a>
+                    <a href="THIRD AUTHOR PERSONAL LINK" target="_blank">Manj</a>
                   </span>
                   </div>
-
-                  <div class="is-size-5 publication-authors">
-                    <!-- TODO: Replace with your institution and conference/journal info -->
-                    <span class="author-block">Institution Name<br>Conference name and year</span>
-                    <!-- TODO: Remove this line if no equal contribution -->
-                    <span class="eql-cntrb"><small><br><sup>*</sup>Indicates Equal Contribution</small></span>
-                  </div>
-
+                    <div class="is-size-5 publication-authors">
+                      <span class="author-block">
+                        University of California, Santa Barbara<br>
+                        arXiv Preprint, 2026
+                      </span>
+                    </div>
                   <div class="column has-text-centered">
                     <div class="publication-links">
                          <!-- TODO: Update with your arXiv paper ID -->
@@ -341,7 +338,19 @@
         <div class="content has-text-justified">
           <!-- TODO: Replace with your paper abstract -->
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ullamcorper tellus sed ante aliquam tempus. Etiam porttitor urna feugiat nibh elementum, et tempor dolor mattis. Donec accumsan enim augue, a vulputate nisi sodales sit amet. Proin bibendum ex eget mauris cursus euismod nec et nibh. Maecenas ac gravida ante, nec cursus dui. Vivamus purus nibh, placerat ac purus eget, sagittis vestibulum metus. Sed vestibulum bibendum lectus gravida commodo. Pellentesque auctor leo vitae sagittis suscipit.
+            Gaussian splatting reconstructions of buildings often contain significant background artifacts, floating geometry, and 
+            noisy Gaussian clusters that extend far beyond the structure of interest. 
+            While these artifacts may be acceptable when viewing a single scene in isolation, 
+            they become problematic when multiple reconstructed buildings are combined into a shared environment, 
+            where overlapping noise degrades visual quality and scene usability.
+
+            Existing pruning approaches typically rely on external geometric priors such as LiDAR data or geometric consistency measures that require reliable scene geometry. 
+            In contrast, we introduce a lineage-aware pruning framework that leverages the Gaussian inheritance tree produced during reconstruction. 
+            By maintaining references to each Gaussian's ancestral lineage, including its originating MASt3R keypoint, our method enables novel analyses based on lineage depth, distance to parent nodes, and distance to the root ancestor.
+
+            Using these lineage-derived signals, we perform hierarchical confidence propagation to estimate the likelihood that a Gaussian belongs to the target building or represents reconstruction noise.
+            Experiments across multiple UCSB buildings and additional urban datasets demonstrate that our approach effectively isolates structures from noisy Gaussian splatting reconstructions, improving visual quality while preserving important architectural details.
+
           </p>
         </div>
       </div>
