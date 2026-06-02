@@ -245,10 +245,12 @@
               <!-- TODO: Replace with your paper authors and their personal links -->
               <span class="author-block">
                 <a href="FIRST AUTHOR PERSONAL LINK" target="_blank">Linghe Zhang</a><sup>*</sup>,</span>
-                <span class="author-block">
-                  <a href="SECOND AUTHOR PERSONAL LINK" target="_blank">Chavi/Gender</a><sup>*</sup>,</span>
                   <span class="author-block">
-                    <a href="THIRD AUTHOR PERSONAL LINK" target="_blank">Manj</a>
+                    <a href="SECOND_AUTHOR_PERSONAL_LINK" target="_blank">Kazu Pang</a><sup>*</sup>,</span>
+                  <span class="author-block">
+                    <a href="THIRD AUTHOR PERSONAL LINK" target="_blank">Chavi/Gender</a><sup>*</sup>,</span>
+                    <span class="author-block">
+                      <a href="FOURTH AUTHOR PERSONAL LINK" target="_blank">Manj</a>
                   </span>
                   </div>
                     <div class="is-size-5 publication-authors">
@@ -311,23 +313,176 @@
 </section>
 
 
-<!-- Teaser video-->
-<section class="hero teaser">
-  <div class="container is-max-desktop">
-    <div class="hero-body">
-      <!-- TODO: Replace with your teaser video -->
-      <video poster="" id="tree" autoplay controls muted loop height="100%" preload="metadata">
-        <!-- TODO: Add your video file path here -->
-        <source src="static/videos/banner_video.mp4" type="video/mp4">
-      </video>
-      <!-- TODO: Replace with your video description -->
-      <h2 class="subtitle has-text-centered">
-        Aliquam vitae elit ullamcorper tellus egestas pellentesque. Ut lacus tellus, maximus vel lectus at, placerat pretium mi. Maecenas dignissim tincidunt vestibulum. Sed consequat hendrerit nisl ut maximus. 
-      </h2>
+<!-- Video Comparison Slider -->
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title is-3 has-text-centered">Video Comparison</h2>
+      <p style="margin-bottom:1.25rem; color:#777; text-align:center;">Drag the white bar to compare results.</p>
+
+      <!--
+        TO USE YOUR OWN VIDEOS:
+        1. Put your .mp4 files in static/videos/
+        2. Update the two src= paths below
+        3. Update the label text in the two .vc-label divs
+      -->
+      
+      <div class="vc-container" id="vc-stage">
+        <video id="vc-vid-a" playsinline loop muted autoplay src="static/videos/splat.mp4"></video>
+        <video id="vc-vid-b" playsinline loop muted autoplay src="static/videos/tree_confidence_pruned.mp4"></video>
+        <div id="vc-divider"></div>
+        <div id="vc-handle">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M7 5L3 10L7 15" stroke="#111" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M13 5L17 10L13 15" stroke="#111" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div id="vc-label-a" class="vc-label" style="left:12px;">Method A<br><span style="font-weight:400; font-size:0.7rem; opacity:0.8;">142,000 splats</span></div>
+        <div id="vc-label-b" class="vc-label" style="right:12px; text-align:right;">Ours<br><span style="font-weight:400; font-size:0.7rem; opacity:0.8;">38,000 splats</span></div>
+      </div>
+
+      <div class="vc-controls">
+        <button class="vc-play-btn" onclick="vcTogglePlay()" id="vc-play-btn-el">⏸</button>
+        <div class="vc-timebar" id="vc-timebar">
+          <div id="vc-timebar-fill"></div>
+        </div>
+        <span id="vc-time">0:00</span>
+      </div>
+      <p style="font-size:0.78rem;color:#aaa;text-align:center;margin-top:8px;">
+        Drag the white bar to compare &nbsp;·&nbsp; Click timeline to seek
+      </p>
+
     </div>
   </div>
 </section>
-<!-- End teaser video -->
+<!-- End Video Comparison Slider -->
+
+<style>
+.vc-container {
+  position: relative; width: 100%; max-width: 900px; margin: 0 auto;
+  border-radius: 8px; overflow: hidden; background: #111;
+  cursor: ew-resize; user-select: none; aspect-ratio: 16/9;
+}
+.vc-container video {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; display: block; pointer-events: none;
+}
+#vc-vid-a { clip-path: inset(0 50% 0 0); }
+#vc-vid-b { clip-path: inset(0 0 0 50%); }
+#vc-divider {
+  position: absolute; top: 0; bottom: 0; left: 50%; width: 2px;
+  background: #fff; transform: translateX(-50%); pointer-events: none; z-index: 10;
+}
+#vc-handle {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%); z-index: 11;
+  width: 40px; height: 40px; border-radius: 50%; background: #fff;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+.vc-label {
+  position: absolute; bottom: 12px; font-size: 0.75rem; font-weight: 600;
+  background: rgba(0,0,0,0.55); color: #fff; padding: 4px 10px;
+  border-radius: 4px; pointer-events: none;
+}
+.vc-controls {
+  display: flex; align-items: center; gap: 10px;
+  max-width: 900px; margin: 10px auto 0;
+}
+.vc-play-btn {
+  width: 36px; height: 36px; border-radius: 6px; border: 1px solid #ccc;
+  background: transparent; cursor: pointer; display: flex;
+  align-items: center; justify-content: center; font-size: 14px;
+}
+.vc-play-btn:hover { background: #f0f0f0; }
+.vc-timebar {
+  flex: 1; height: 4px; background: #ddd; border-radius: 2px; cursor: pointer;
+}
+#vc-timebar-fill { height: 100%; background: #363636; border-radius: 2px; width: 0%; }
+#vc-time { font-size: 0.75rem; color: #888; min-width: 32px; text-align: right; }
+</style>
+
+<script>
+(function () {
+  var pct = 50, dragging = false, playing = false, rafId = null;
+  var stage   = document.getElementById('vc-stage');
+  var vidA    = document.getElementById('vc-vid-a');
+  var vidB    = document.getElementById('vc-vid-b');
+  var divLine = document.getElementById('vc-divider');
+  var handle  = document.getElementById('vc-handle');
+  var fill    = document.getElementById('vc-timebar-fill');
+  var timebar = document.getElementById('vc-timebar');
+  var timeEl  = document.getElementById('vc-time');
+
+  function setSlider(p) {
+    pct = Math.max(1, Math.min(99, p));
+    vidA.style.clipPath = 'inset(0 ' + (100 - pct) + '% 0 0)';
+    vidB.style.clipPath = 'inset(0 0 0 ' + pct + '%)';
+    divLine.style.left = pct + '%';
+    handle.style.left  = pct + '%';
+  }
+  function cx(e) { return e.touches ? e.touches[0].clientX : e.clientX; }
+  function getPct(e) { var r = stage.getBoundingClientRect(); return ((cx(e) - r.left) / r.width) * 100; }
+
+  stage.addEventListener('mousedown',  function(e) { dragging = true; setSlider(getPct(e)); e.preventDefault(); });
+  stage.addEventListener('touchstart', function(e) { dragging = true; setSlider(getPct(e)); }, {passive:true});
+  window.addEventListener('mousemove',  function(e) { if (dragging) setSlider(getPct(e)); });
+  window.addEventListener('touchmove',  function(e) { if (dragging) setSlider(getPct(e)); }, {passive:true});
+  window.addEventListener('mouseup',   function() { dragging = false; });
+  window.addEventListener('touchend',  function() { dragging = false; });
+
+  function tick() {
+    var dur = vidA.duration || 0, cur = vidA.currentTime || 0;
+    if (dur > 0) {
+      fill.style.width = ((cur / dur) * 100).toFixed(1) + '%';
+      timeEl.textContent = Math.floor(cur/60) + ':' + Math.floor(cur%60).toString().padStart(2,'0');
+    }
+    if (playing) rafId = requestAnimationFrame(tick);
+  }
+
+  window.vcTogglePlay = function() {
+    if (playing) {
+      vidA.pause(); vidB.pause(); playing = false;
+      document.getElementById('vc-play-btn-el').textContent = '▶';
+      cancelAnimationFrame(rafId);
+    } else {
+      vidA.play().catch(function(){}); vidB.play().catch(function(){});
+      playing = true;
+      document.getElementById('vc-play-btn-el').textContent = '⏸';
+      tick();
+    }
+  };
+
+  timebar.addEventListener('click', function(e) {
+    var r = timebar.getBoundingClientRect();
+    var d = vidA.duration || 0;
+    if (d > 0) { vidA.currentTime = vidB.currentTime = ((e.clientX - r.left) / r.width) * d; tick(); }
+  });
+
+  vidA.addEventListener('ended', function() {
+    playing = false;
+    document.getElementById('vc-play-icon').className = 'fas fa-play';
+    cancelAnimationFrame(rafId);
+  });
+
+  // Autostart once both videos are ready
+  var rA = false, rB = false;
+  function tryStart() {
+    if (!rA || !rB) return;
+    vidA.play().catch(function(){}); vidB.play().catch(function(){});
+    playing = true;
+    document.getElementById('vc-play-btn-el').textContent = '⏸';
+    tick();
+  }
+  vidA.addEventListener('canplay', function h() { vidA.removeEventListener('canplay',h); rA=true; tryStart(); });
+  vidB.addEventListener('canplay', function h() { vidB.removeEventListener('canplay',h); rB=true; tryStart(); });
+  if (vidA.readyState >= 3) { rA = true; }
+  if (vidB.readyState >= 3) { rB = true; }
+  tryStart();
+
+  setSlider(50);
+})();
+</script>
 
 <!-- Paper abstract -->
 <section class="section hero is-light">
@@ -358,7 +513,6 @@
   </div>
 </section>
 <!-- End paper abstract -->
-
 
 <!-- Image carousel -->
 <section class="hero is-small">
